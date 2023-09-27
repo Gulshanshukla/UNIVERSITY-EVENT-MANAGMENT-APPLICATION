@@ -1,6 +1,20 @@
 # <h1 align ="center"> University Event Management</h1>
 
 University Event Management is a Spring Boot application designed to manage student information and university events. It provides a set of RESTful APIs for adding, updating, deleting, and retrieving student and event data. This application uses an H2 database for data storage.
+***
+<p align ="center">
+<a href="Java url"> 
+  <img alt="Java" src="https://img.shields.io/badge/Java->=8-darkblue.svg"/>
+</a>
+<a href="Maven url"> 
+  <img alt="Maven" src="https://img.shields.io/badge/maven-4.0.0-brightgreen.svg"/>
+</a>
+<a href="Spring Boot url"> 
+  <img alt="Spring Boot" src="https://img.shields.io/badge/Spring Boot-3.1.4-brightgreen.svg"/>
+</a>
+<a href="Spring Boot url"> 
+  <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"/>
+</a>
 
 ## Table of Contents
 
