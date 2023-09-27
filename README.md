@@ -38,18 +38,18 @@ To build the application, follow these steps:
   ***
  The following API endpoints are available:
   #### Student
-* GET /students: Get a list of all students.
-* GET /student/{studentId}: Get a student by ID.
-* POST /students: Add a new student.
-* PUT /student/{studentId}/department: Update a student's department.
-* DELETE /student/id/{id}: Delete a student.
+* `GET /students`: Get a list of all students.
+* `GET /student/{studentId}`: Get a student by ID.
+* `POST /students`: Add a new student.
+* `PUT /student/{studentId}/department`: Update a student's department.
+* `DELETE /student/id/{id}`: Delete a student.
   #### Event
-* GET /events: Get a list of all events.
-* GET /event/id/{id}: Get an event by ID.
-* POST /event: Add a new event.
-* PUT /event/{eventId}: Update an event.
-* DELETE /event/{eventId}: Delete an event.
-* GET /event/by-date: Get all events by date.
+* `GET /events`: Get a list of all events.
+* `GET /event/id/{id}`: Get an event by ID.
+* `POST /event`: Add a new event.
+* `PUT /event/{eventId}`: Update an event.
+* `DELETE /event/{eventId}`: Delete an event.
+* `GET /event/by-date`: Get all events by date.
 ***
 ## Data Models
 #### Student
