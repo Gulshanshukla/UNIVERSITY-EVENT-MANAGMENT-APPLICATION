@@ -234,3 +234,27 @@ public class Eventcontroller {
     }
 }
 ```
+### Database Design
+The project database design includes tables for user management ,with fields such as :
+* studentId:(studentId)
+* firstrName:(firstName)
+* lastNamer:(lastName)
+* age:(age)
+* eventId:(eventId)
+* eventName:(eventName)
+* locationOfEvent:(locationOfEvent)
+* date:(date)
+* startTime:(startTime)
+* endTime:(endTime)
+  ***
+### Data Structure Used
+* user Class: Defines the structure for user data,including users attributes.
+* H2 databse is used for storing and performing operations on the data
+  ***
+  ### Key Points
+  * RESTful API endpoints for user management.
+  * clean code separation with a layered architechture(UserController,BeanBagRepository).
+  * Robust error handling for improve reliability.
+  * java based backend framework(Spring boot) and maven  for build management.
+  * Beginner friendly
+  * validation for data integrity.
