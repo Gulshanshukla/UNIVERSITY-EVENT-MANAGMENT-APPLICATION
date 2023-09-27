@@ -1,4 +1,4 @@
-# University Event Management
+# <h1 align ="center"> University Event Management</h1>
 
 University Event Management is a Spring Boot application designed to manage student information and university events. It provides a set of RESTful APIs for adding, updating, deleting, and retrieving student and event data. This application uses an H2 database for data storage.
 
@@ -42,10 +42,10 @@ To build the application, follow these steps:
 * GET /student/{studentId}: Get a student by ID.
 * POST /students: Add a new student.
 * PUT /student/{studentId}/department: Update a student's department.
-* DELETE /students/{studentId}: Delete a student.
+* DELETE /student/id/{id}: Delete a student.
   #### Event
 * GET /events: Get a list of all events.
-* GET /event/{eventId}: Get an event by ID.
+* GET /event/id/{id}: Get an event by ID.
 * POST /event: Add a new event.
 * PUT /event/{eventId}: Update an event.
 * DELETE /event/{eventId}: Delete an event.
