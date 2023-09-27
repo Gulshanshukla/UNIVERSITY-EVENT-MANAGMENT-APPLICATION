@@ -74,11 +74,149 @@ To build the application, follow these steps:
  ## Service Classes
 #### StudentService
 The StudentService class handles business logic related to students, such as validation and data manipulation.
+``` java
+@Service
+
+public class Studentservice {
+    @Autowired
+    Istudentrepo iStudentrepo;
+
+
+
+
+
+
+
+    public String addStudents(List<Student> newstudents) {
+    iStudentrepo.saveAll(newstudents);
+    return newstudents.size()+ "student added";
+    }
+
+    public List<Student> getAllStudents() {
+        return  iStudentrepo.findAll();
+    }
+
+    public Student getStudentById(Long id) {
+        return iStudentrepo.findById(id).get();
+    }
+
+
+    public String deleteStudentById(Long id) {
+         iStudentrepo.deleteById(id);
+         return "student removed";
+    }
+
+    public Student updateStudentDepartment(Long studentId, Department newDepartment) {
+        Student existingStudent = iStudentrepo.findById(studentId).orElse(null);
+
+        if (existingStudent != null) {
+            existingStudent.setDepartment(newDepartment);
+            return  iStudentrepo.save(existingStudent);
+        } else {
+            throw new StudentNotFoundException("Student with ID " + studentId + " not found");
+        }
+    }
+}
+```
 #### EventService
 The EventService class handles business logic related to events, including date-based operations.
+``` java
+@Service
+
+public class Eventservice {
+    @Autowired
+    IEventrepo iEventrepo;
+
+    public String addEvents(List<Event> newevents) {
+        iEventrepo.saveAll(newevents);
+        return newevents.size()+" event added";
+    }
+
+    public String removeEventsByIds(List<Long> ids) {
+         iEventrepo.deleteAllById(ids);
+         return " event removed";
+    }
+
+    public List<Event> getAllEventsByDate(LocalDate localDate) {
+        return iEventrepo.findAllByDate(localDate);
+```
 ***
 ## Controller Classes
 #### StudentController
 The StudentController class defines API endpoints for managing student data. It interacts with the StudentService for business logic.
+``` java
+@RestController
+@Validated
+
+public class Studentcontroller {
+    @Autowired
+    Studentservice studentservice;
+    //1.add students
+    @PostMapping("students")
+    public String addstudents(@RequestBody @Valid List<Student> newstudents)
+    {
+          return   studentservice.addStudents(newstudents);
+
+    }
+    //2.get allstudents
+    @GetMapping("students")
+    public List<Student> getallstudents()
+    {
+        return studentservice.getAllStudents();
+    }
+    //3.get student by id
+    @GetMapping("students/id/{id}")
+
+        public Student getstudentsbyid( @PathVariable @Valid Long  id)
+        {
+            return studentservice.getStudentById(id);
+
+        }
+        //4.detete student
+    @DeleteMapping("student/id/{id}")
+    public String deletestudent(@PathVariable @Valid Long id){
+     return  studentservice.deleteStudentById(id);
+    }
+    //5. update student department
+    @PutMapping("/{studentId}/updateDepartment/{department}")
+    public Student updatestudentdepartment(
+            @PathVariable Long studentId,
+            @PathVariable Department newDepartment
+    ) {
+        return studentservice.updateStudentDepartment(studentId, newDepartment);
+    }
+
+
+
+
+}
+```
 #### EventController
 The EventController class defines API endpoints for managing event data. It interacts with the EventService for business logic.
+``` java
+RestController
+@Validated
+
+public class Eventcontroller {
+    @Autowired
+    Eventservice eventservice;
+    //1.add events
+    @PostMapping("events")
+    public String addevents(@RequestBody @Valid List<Event> newevents)
+    {
+        return eventservice.addEvents(newevents);
+    }
+    ///2. delete events
+    @DeleteMapping("remove/ids")
+    public String deleteeventsbyids(List<Long> ids)
+    {
+        return eventservice.removeEventsByIds(ids);
+    }
+    //3. get all events by date by custom finder
+    @GetMapping("eventby/Date")
+    public List<Event> getEventsByDate(@RequestParam("date") String date) {
+        LocalDate localDate = LocalDate.parse(date); // Convert the date string to LocalDate
+        return eventservice.getAllEventsByDate(localDate);
+    }
+}
+```
