@@ -20,8 +20,6 @@ University Event Management is a Spring Boot application designed to manage stud
 
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
-  - [Building the Application](#building-the-application)
-  - [Running the Application](#running-the-application)
 - [API Endpoints](#api-endpoints)
 - [Data Models](#data-models)
 - [Validation Rules](#validation-rules)
