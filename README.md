@@ -67,18 +67,18 @@ To build the application, follow these steps:
 ***
 ## Data Models
 #### Student
-* studentId: Unique identifier for the student.
-* firstName: First name of the student (capitalized).
-* lastName: Last name of the student (capitalized).
-* age: Age of the student (between 18 and 25).
-* department: Department of the student (ME, ECE, CIVIL, CSE).
+* **studentId**: Unique identifier for the student.
+* **firstName**: First name of the student (capitalized).
+* **lastName**: Last name of the student (capitalized).
+* **age**: Age of the student (between 18 and 25).
+* **department**: Department of the student (ME, ECE, CIVIL, CSE).
 #### Event
-* eventId: Unique identifier for the event.
-* eventName: Name of the event.
-* locationOfEvent: Location of the event.
-* date: Date of the event.
-* startTime: Start time of the event.
-* endTime: End time of the event.
+* **eventId**: Unique identifier for the event.
+* **eventName**: Name of the event.
+* **locationOfEvent**: Location of the event.
+* **date**: Date of the event.
+* **startTime**: Start time of the event.
+* **endTime**: End time of the event.
 ***
 ## Validation Rules
 * Age must be between 18 and 25.
@@ -150,6 +150,21 @@ public class Eventservice {
 
     public List<Event> getAllEventsByDate(LocalDate localDate) {
         return iEventrepo.findAllByDate(localDate);
+}
+ public Event updateEvent(Long eventId, Event updatedEvent) {
+        Event existingEvent = iEventrepo.findById(eventId)
+                .orElseThrow(() -> new EntityNotFoundException("Event not found"));
+
+        // Update the fields of the existing event with the values from the updated event
+        existingEvent.setEventName(updatedEvent.getEventName());
+        existingEvent.setLocationOfEvent(updatedEvent.getLocationOfEvent());
+        existingEvent.setDate(updatedEvent.getDate());
+        existingEvent.setStartTime(updatedEvent.getStartTime());
+        existingEvent.setEndTime(updatedEvent.getEndTime());
+
+        // Save the updated event
+        return iEventrepo.save(existingEvent);
+    }
 ```
 ***
 ## Controller Classes
@@ -227,6 +242,11 @@ public class Eventcontroller {
     public List<Event> getEventsByDate(@RequestParam("date") String date) {
         LocalDate localDate = LocalDate.parse(date); // Convert the date string to LocalDate
         return eventservice.getAllEventsByDate(localDate);
+    }
+//4.update event
+@PutMapping("event/eventId/{eventId}")
+    public Event updateEvent(@PathVariable Long eventId, @RequestBody Event updatedEvent) {
+        return eventservice.updateEvent(eventId, updatedEvent);
     }
 }
 ```
