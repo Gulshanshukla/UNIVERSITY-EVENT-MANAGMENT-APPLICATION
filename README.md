@@ -55,7 +55,7 @@ To build the application, follow these steps:
 * `GET /students`: Get a list of all students.
 * `GET /student/{studentId}`: Get a student by ID.
 * `POST /students`: Add a new student.
-* `PUT /student/{studentId}/department`: Update a student's department.
+* `PUT /{studentId}/updateDepartment`: Update a student's department.
 * `DELETE /student/id/{id}`: Delete a student.
   #### Event
 * `GET /events`: Get a list of all events.
@@ -120,15 +120,12 @@ public class Studentservice {
          return "student removed";
     }
 
-    public Student updateStudentDepartment(Long studentId, Department newDepartment) {
-        Student existingStudent = iStudentrepo.findById(studentId).orElse(null);
+   public Student updateStudentDepartment(Long studentId, Department newDepartment) {
+        Student student = iStudentrepo.findById(studentId)
+                .orElseThrow(() -> new EntityNotFoundException("Student not found"));
 
-        if (existingStudent != null) {
-            existingStudent.setDepartment(newDepartment);
-            return  iStudentrepo.save(existingStudent);
-        } else {
-            throw new StudentNotFoundException("Student with ID " + studentId + " not found");
-        }
+        student.setDepartment(newDepartment);
+        return iStudentrepo.save(student);
     }
 }
 ```
@@ -191,12 +188,11 @@ public class Studentcontroller {
     public String deletestudent(@PathVariable @Valid Long id){
      return  studentservice.deleteStudentById(id);
     }
-    //5. update student department
-    @PutMapping("/{studentId}/updateDepartment/{department}")
-    public Student updatestudentdepartment(
+//5.update student department
+  @PutMapping("/{studentId}/updateDepartment")
+    public Student updateStudentDepartment(
             @PathVariable Long studentId,
-            @PathVariable Department newDepartment
-    ) {
+            @RequestParam Department newDepartment) {
         return studentservice.updateStudentDepartment(studentId, newDepartment);
     }
 
