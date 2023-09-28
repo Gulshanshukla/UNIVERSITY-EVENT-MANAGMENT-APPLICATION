@@ -24,7 +24,7 @@ public class Eventcontroller {
     }
     ///2. delete events
     @DeleteMapping("remove/ids")
-    public String deleteeventsbyids(List<Long> ids)
+    public String deleteeventsbyids(@RequestBody List<Long> ids)
     {
         return eventservice.removeEventsByIds(ids);
     }
@@ -33,5 +33,13 @@ public class Eventcontroller {
     public List<Event> getEventsByDate(@RequestParam("date") String date) {
         LocalDate localDate = LocalDate.parse(date); // Convert the date string to LocalDate
         return eventservice.getAllEventsByDate(localDate);
+
     }
+    /// 4.update event
+    @PutMapping("event/eventId/{eventId}")
+    public Event updateEvent(@PathVariable Long eventId, @RequestBody Event updatedEvent) {
+        return eventservice.updateEvent(eventId, updatedEvent);
+    }
+
+
 }

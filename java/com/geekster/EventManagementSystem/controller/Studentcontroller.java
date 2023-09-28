@@ -43,13 +43,14 @@ public class Studentcontroller {
      return  studentservice.deleteStudentById(id);
     }
     //5. update student department
-    @PutMapping("/{studentId}/updateDepartment/{department}")
-    public Student updatestudentdepartment(
+    @PutMapping("/{studentId}/updateDepartment")
+    public Student updateStudentDepartment(
             @PathVariable Long studentId,
-            @PathVariable Department newDepartment
-    ) {
+            @RequestParam Department newDepartment) {
         return studentservice.updateStudentDepartment(studentId, newDepartment);
     }
+
+
 
 
 

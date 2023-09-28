@@ -4,6 +4,7 @@ import com.geekster.EventManagementSystem.exception.StudentNotFoundException;
 import com.geekster.EventManagementSystem.model.Department;
 import com.geekster.EventManagementSystem.model.Student;
 import com.geekster.EventManagementSystem.repo.Istudentrepo;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,13 +41,10 @@ public class Studentservice {
     }
 
     public Student updateStudentDepartment(Long studentId, Department newDepartment) {
-        Student existingStudent = iStudentrepo.findById(studentId).orElse(null);
+        Student student = iStudentrepo.findById(studentId)
+                .orElseThrow(() -> new EntityNotFoundException("Student not found"));
 
-        if (existingStudent != null) {
-            existingStudent.setDepartment(newDepartment);
-            return  iStudentrepo.save(existingStudent);
-        } else {
-            throw new StudentNotFoundException("Student with ID " + studentId + " not found");
-        }
+        student.setDepartment(newDepartment);
+        return iStudentrepo.save(student);
     }
 }
